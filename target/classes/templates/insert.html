@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+<body>
+<form action="/student" method="post">
+
+    <div class="form-group">
+        <label>学生姓名</label>
+        <input type="text" class="form-control" name="name">
+    </div>
+    <div class="form-group">
+        <label >学生手机号</label>
+        <input type="text" class="form-control" name="phone">
+    </div>
+    <div class="form-group form-check">
+        <label >学生出生日期</label>
+        <input type="date" class="form-check-input" name="birth">
+    </div>
+    <div class="form-group">
+        <label>学生家庭住址</label>
+        <input type="text" class="form-control" name="address">
+
+    </div>
+    <div class="form-group">
+        <label>学生年级</label>
+       <select name="grade.id">
+
+       </select>
+
+    </div>
+    <button type="submit" class="btn btn-primary">增加</button>
+</form>
+<!--导入jQuery.js-->
+<script type="text/javascript" th:src="@{/webjars/jquery/3.0.0/jquery.js}"></script>
+<script>
+    $(function () {
+        $.ajax({
+            url:"http://localhost:8081/grade",
+            type:"GET",
+            dataType:"Json",
+            success:function (grades) {
+                var  str="";
+                for (var i = 0; i <grades.length ; i++) {
+                    str+="<option value='"+grades[i].id+"'>"+grades[i].name+"</option>";
+                }
+                $("select").html(str)
+            }
+        });
+    });
+</script>
+</body>
+</html>
